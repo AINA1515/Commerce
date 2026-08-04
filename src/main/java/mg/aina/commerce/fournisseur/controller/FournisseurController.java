@@ -3,7 +3,7 @@ package mg.aina.commerce.fournisseur.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import mg.aina.commerce.fournisseur.entity.Fournisseur;
+import mg.aina.commerce.fournisseur.dto.FournisseurDTO;
 import mg.aina.commerce.fournisseur.service.FournisseurService;
 
 import java.util.List;
@@ -18,24 +18,24 @@ public class FournisseurController {
     }
 
     @GetMapping
-    public List<Fournisseur> findAll() {
+    public List<FournisseurDTO> findAll() {
         return fournisseurService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fournisseur> findById(@PathVariable Integer id) {
-        Fournisseur fournisseur = fournisseurService.findById(id);
-        return fournisseur != null ? ResponseEntity.ok(fournisseur) : ResponseEntity.notFound().build();
+    public ResponseEntity<FournisseurDTO> findById(@PathVariable Integer id) {
+        FournisseurDTO dto = fournisseurService.findById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Fournisseur create(@RequestBody Fournisseur fournisseur) {
-        return fournisseurService.save(fournisseur);
+    public FournisseurDTO create(@RequestBody FournisseurDTO dto) {
+        return fournisseurService.save(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Fournisseur> update(@PathVariable Integer id, @RequestBody Fournisseur fournisseur) {
-        Fournisseur updated = fournisseurService.update(id, fournisseur);
+    public ResponseEntity<FournisseurDTO> update(@PathVariable Integer id, @RequestBody FournisseurDTO dto) {
+        FournisseurDTO updated = fournisseurService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 

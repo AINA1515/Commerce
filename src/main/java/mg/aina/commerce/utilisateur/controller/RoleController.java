@@ -3,7 +3,7 @@ package mg.aina.commerce.utilisateur.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import mg.aina.commerce.utilisateur.entity.Role;
+import mg.aina.commerce.utilisateur.dto.RoleDTO;
 import mg.aina.commerce.utilisateur.service.RoleService;
 
 import java.util.List;
@@ -18,24 +18,24 @@ public class RoleController {
     }
 
     @GetMapping
-    public List<Role> findAll() {
+    public List<RoleDTO> findAll() {
         return roleService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> findById(@PathVariable Integer id) {
-        Role role = roleService.findById(id);
-        return role != null ? ResponseEntity.ok(role) : ResponseEntity.notFound().build();
+    public ResponseEntity<RoleDTO> findById(@PathVariable Integer id) {
+        RoleDTO dto = roleService.findById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Role create(@RequestBody Role role) {
-        return roleService.save(role);
+    public RoleDTO create(@RequestBody RoleDTO dto) {
+        return roleService.save(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Role> update(@PathVariable Integer id, @RequestBody Role role) {
-        Role updated = roleService.update(id, role);
+    public ResponseEntity<RoleDTO> update(@PathVariable Integer id, @RequestBody RoleDTO dto) {
+        RoleDTO updated = roleService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 

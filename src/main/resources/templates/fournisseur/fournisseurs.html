@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/common :: head}"></th:block>
+    <title>Fournisseurs - Commerce</title>
+</head>
+<body>
+<nav th:replace="~{fragments/common :: navbar}"></nav>
+
+<div class="container-fluid">
+    <div class="app-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">Fournisseurs</h4>
+            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
+        </div>
+        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr id="crud-thead-row"></tr>
+                </thead>
+                <tbody id="crud-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/modal :: modal}"></div>
+
+<th:block th:replace="~{fragments/common :: scripts}"></th:block>
+<script th:inline="javascript">
+    const crudConfig = {
+        apiUrl: "/api/fournisseurs",
+        idKey: null,
+        columns: [
+            { key: "nom", label: "Nom", type: "text" },
+            { key: "prenom", label: "Prenom", type: "text" },
+            { key: "email", label: "Email", type: "text" },
+            { key: "telephone", label: "Telephone", type: "text" },
+            { key: "adresse", label: "Adresse", type: "text" },
+        ],
+        fields: [
+            { key: "nom", label: "Nom", type: "text", required: true },
+            { key: "prenom", label: "Prenom", type: "text", required: true },
+            { key: "email", label: "Email", type: "email" },
+            { key: "telephone", label: "Telephone", type: "text", required: true },
+            { key: "adresse", label: "Adresse", type: "text", required: true },
+        ]
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+        CrudPage.init(crudConfig);
+    });
+</script>
+</body>
+</html>

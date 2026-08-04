@@ -1,6 +1,3 @@
-create database commerce;
-use commerce;
-
 -- USER 
 
 create table if not exists role (
@@ -163,7 +160,7 @@ create table if not exists journal_commande(
     id_utilisateur INTEGER NOT NULL REFERENCES utilisateur(id),
     id_client INTEGER not NULL REFERENCES client(id),
     montant_total REAL not NULL,
-    montant_payee real not NULL,
+    montant_payee real not NULL
 );
 
 create table if not exists journal_commande_fille(

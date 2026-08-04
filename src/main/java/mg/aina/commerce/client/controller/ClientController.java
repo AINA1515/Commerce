@@ -3,7 +3,7 @@ package mg.aina.commerce.client.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import mg.aina.commerce.client.entity.Client;
+import mg.aina.commerce.client.dto.ClientDTO;
 import mg.aina.commerce.client.service.ClientService;
 
 import java.util.List;
@@ -18,24 +18,24 @@ public class ClientController {
     }
 
     @GetMapping
-    public List<Client> findAll() {
+    public List<ClientDTO> findAll() {
         return clientService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> findById(@PathVariable Integer id) {
-        Client client = clientService.findById(id);
-        return client != null ? ResponseEntity.ok(client) : ResponseEntity.notFound().build();
+    public ResponseEntity<ClientDTO> findById(@PathVariable Integer id) {
+        ClientDTO dto = clientService.findById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Client create(@RequestBody Client client) {
-        return clientService.save(client);
+    public ClientDTO create(@RequestBody ClientDTO dto) {
+        return clientService.save(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Client> update(@PathVariable Integer id, @RequestBody Client client) {
-        Client updated = clientService.update(id, client);
+    public ResponseEntity<ClientDTO> update(@PathVariable Integer id, @RequestBody ClientDTO dto) {
+        ClientDTO updated = clientService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 

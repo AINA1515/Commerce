@@ -2,6 +2,7 @@ package mg.aina.commerce.fournisseur.service;
 
 import org.springframework.stereotype.Service;
 
+import mg.aina.commerce.fournisseur.dto.TypeTransactionFournisseurDTO;
 import mg.aina.commerce.fournisseur.entity.TypeTransactionFournisseur;
 import mg.aina.commerce.fournisseur.repository.TypeTransactionFournisseurRepository;
 
@@ -15,28 +16,41 @@ public class TypeTransactionFournisseurService {
         this.typeTransactionFournisseurRepository = typeTransactionFournisseurRepository;
     }
 
-    public List<TypeTransactionFournisseur> findAll() {
-        return typeTransactionFournisseurRepository.findAll();
+    public List<TypeTransactionFournisseurDTO> findAll() {
+        return typeTransactionFournisseurRepository.findAll().stream()
+                .map(this::toDTO)
+                .toList();
     }
 
-    public TypeTransactionFournisseur findById(Integer id) {
-        return typeTransactionFournisseurRepository.findById(id).orElse(null);
+    public TypeTransactionFournisseurDTO findById(Integer id) {
+        return typeTransactionFournisseurRepository.findById(id)
+                .map(this::toDTO)
+                .orElse(null);
     }
 
-    public TypeTransactionFournisseur save(TypeTransactionFournisseur typeTransactionFournisseur) {
-        return typeTransactionFournisseurRepository.save(typeTransactionFournisseur);
+    public TypeTransactionFournisseurDTO save(TypeTransactionFournisseurDTO dto) {
+        TypeTransactionFournisseur typeTransactionFournisseur = new TypeTransactionFournisseur();
+        typeTransactionFournisseur.setNom(dto.getNom());
+        return toDTO(typeTransactionFournisseurRepository.save(typeTransactionFournisseur));
     }
 
-    public TypeTransactionFournisseur update(Integer id, TypeTransactionFournisseur typeTransactionFournisseur) {
+    public TypeTransactionFournisseurDTO update(Integer id, TypeTransactionFournisseurDTO dto) {
         TypeTransactionFournisseur existing = typeTransactionFournisseurRepository.findById(id).orElse(null);
         if (existing == null) {
             return null;
         }
-        existing.setNom(typeTransactionFournisseur.getNom());
-        return typeTransactionFournisseurRepository.save(existing);
+        existing.setNom(dto.getNom());
+        return toDTO(typeTransactionFournisseurRepository.save(existing));
     }
 
     public void delete(Integer id) {
         typeTransactionFournisseurRepository.deleteById(id);
+    }
+
+    private TypeTransactionFournisseurDTO toDTO(TypeTransactionFournisseur typeTransactionFournisseur) {
+        return new TypeTransactionFournisseurDTO(
+                typeTransactionFournisseur.getId(),
+                typeTransactionFournisseur.getNom()
+        );
     }
 }

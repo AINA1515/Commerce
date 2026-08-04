@@ -24,7 +24,7 @@ public class StockProduitService {
     public List<StockProduitDTO> findAll() {
         return stockProduitRepository.findAll().stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public StockProduitDTO findById(Integer id) {

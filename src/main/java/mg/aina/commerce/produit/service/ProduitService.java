@@ -9,7 +9,6 @@ import mg.aina.commerce.produit.repository.ProduitRepository;
 import mg.aina.commerce.produit.repository.TypeProduitRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProduitService {
@@ -24,7 +23,7 @@ public class ProduitService {
     public List<ProduitDTO> findAll() {
         return produitRepository.findAll().stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ProduitDTO findById(Integer id) {

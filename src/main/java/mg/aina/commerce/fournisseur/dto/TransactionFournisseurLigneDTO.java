@@ -3,7 +3,6 @@ package mg.aina.commerce.fournisseur.dto;
 import java.sql.Timestamp;
 
 public class TransactionFournisseurLigneDTO {
-    private Integer id;
     private Integer idFournisseur;
     private String nomFournisseur;
     private Integer idTransactionFournisseur;
@@ -11,13 +10,12 @@ public class TransactionFournisseurLigneDTO {
     private String nomProduit;
     private Integer quantite;
     private Double montant;
-    private Timestamp dateModification;
+    private Timestamp dateCreation;
 
     public TransactionFournisseurLigneDTO() {
     }
 
-    public TransactionFournisseurLigneDTO(Integer id, Integer idFournisseur, String nomFournisseur, Integer idTransactionFournisseur, Integer idProduit, String nomProduit, Integer quantite, Double montant, Timestamp dateModification) {
-        this.id = id;
+    public TransactionFournisseurLigneDTO(Integer idFournisseur, String nomFournisseur, Integer idTransactionFournisseur, Integer idProduit, String nomProduit, Integer quantite, Double montant, Timestamp dateCreation) {
         this.idFournisseur = idFournisseur;
         this.nomFournisseur = nomFournisseur;
         this.idTransactionFournisseur = idTransactionFournisseur;
@@ -25,15 +23,7 @@ public class TransactionFournisseurLigneDTO {
         this.nomProduit = nomProduit;
         this.quantite = quantite;
         this.montant = montant;
-        this.dateModification = dateModification;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.dateCreation = dateCreation;
     }
 
     public Integer getIdFournisseur() {
@@ -92,11 +82,11 @@ public class TransactionFournisseurLigneDTO {
         this.montant = montant;
     }
 
-    public Timestamp getDateModification() {
-        return dateModification;
+    public Timestamp getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDateModification(Timestamp dateModification) {
-        this.dateModification = dateModification;
+    public void setDateCreation(Timestamp dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

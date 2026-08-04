@@ -3,7 +3,7 @@ package mg.aina.commerce.produit.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import mg.aina.commerce.produit.entity.TypeTransationStock;
+import mg.aina.commerce.produit.dto.TypeTransationStockDTO;
 import mg.aina.commerce.produit.service.TypeTransationStockService;
 
 import java.util.List;
@@ -18,24 +18,24 @@ public class TypeTransationStockController {
     }
 
     @GetMapping
-    public List<TypeTransationStock> findAll() {
+    public List<TypeTransationStockDTO> findAll() {
         return typeTransationStockService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeTransationStock> findById(@PathVariable Integer id) {
-        TypeTransationStock typeTransationStock = typeTransationStockService.findById(id);
-        return typeTransationStock != null ? ResponseEntity.ok(typeTransationStock) : ResponseEntity.notFound().build();
+    public ResponseEntity<TypeTransationStockDTO> findById(@PathVariable Integer id) {
+        TypeTransationStockDTO dto = typeTransationStockService.findById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public TypeTransationStock create(@RequestBody TypeTransationStock typeTransationStock) {
-        return typeTransationStockService.save(typeTransationStock);
+    public TypeTransationStockDTO create(@RequestBody TypeTransationStockDTO dto) {
+        return typeTransationStockService.save(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeTransationStock> update(@PathVariable Integer id, @RequestBody TypeTransationStock typeTransationStock) {
-        TypeTransationStock updated = typeTransationStockService.update(id, typeTransationStock);
+    public ResponseEntity<TypeTransationStockDTO> update(@PathVariable Integer id, @RequestBody TypeTransationStockDTO dto) {
+        TypeTransationStockDTO updated = typeTransationStockService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 

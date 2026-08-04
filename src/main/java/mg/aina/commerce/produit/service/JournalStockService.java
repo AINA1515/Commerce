@@ -35,7 +35,7 @@ public class JournalStockService {
     public List<JournalStockDTO> findAll() {
         return journalStockRepository.findAll().stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public JournalStockDTO findById(Integer id) {
@@ -47,7 +47,7 @@ public class JournalStockService {
     public List<JournalStockDTO> findByProduitId(Integer produitId) {
         return journalStockRepository.findByProduitId(produitId).stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public JournalStockDTO save(JournalStockDTO dto) {

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/common :: head}"></th:block>
+    <title>Accueil - Commerce</title>
+</head>
+<body>
+<nav th:replace="~{fragments/common :: navbar}"></nav>
+
+<div class="container-fluid">
+    <div class="app-card">
+        <h4 class="mb-3">Tableau de bord</h4>
+        <p class="text-muted">Choisissez un module dans le menu ci-dessus pour gerer les donnees.</p>
+        <div class="row g-3">
+            <div class="col-md-3">
+                <a th:href="@{/clients}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Clients</div>
+                        <div class="text-muted small">Gerer les clients</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/produits}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Produits</div>
+                        <div class="text-muted small">Gerer le catalogue et le stock</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/commandes}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Commandes</div>
+                        <div class="text-muted small">Suivre les commandes</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/fournisseurs}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Fournisseurs</div>
+                        <div class="text-muted small">Gerer les fournisseurs</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/depenses}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Depenses</div>
+                        <div class="text-muted small">Historique des depenses</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/remises}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Remises</div>
+                        <div class="text-muted small">Gerer les remises</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/caisse}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Caisse</div>
+                        <div class="text-muted small">Suivre le solde</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/utilisateurs}" class="text-decoration-none">
+                    <div class="p-3 border rounded h-100">
+                        <div class="fw-semibold">Utilisateurs</div>
+                        <div class="text-muted small">Comptes et roles</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{fragments/common :: scripts}"></th:block>
+</body>
+</html>

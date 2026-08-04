@@ -3,7 +3,7 @@ package mg.aina.commerce.fournisseur.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import mg.aina.commerce.fournisseur.entity.TypeTransactionFournisseur;
+import mg.aina.commerce.fournisseur.dto.TypeTransactionFournisseurDTO;
 import mg.aina.commerce.fournisseur.service.TypeTransactionFournisseurService;
 
 import java.util.List;
@@ -18,24 +18,24 @@ public class TypeTransactionFournisseurController {
     }
 
     @GetMapping
-    public List<TypeTransactionFournisseur> findAll() {
+    public List<TypeTransactionFournisseurDTO> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeTransactionFournisseur> findById(@PathVariable Integer id) {
-        TypeTransactionFournisseur entity = service.findById(id);
-        return entity != null ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
+    public ResponseEntity<TypeTransactionFournisseurDTO> findById(@PathVariable Integer id) {
+        TypeTransactionFournisseurDTO dto = service.findById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public TypeTransactionFournisseur create(@RequestBody TypeTransactionFournisseur entity) {
-        return service.save(entity);
+    public TypeTransactionFournisseurDTO create(@RequestBody TypeTransactionFournisseurDTO dto) {
+        return service.save(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeTransactionFournisseur> update(@PathVariable Integer id, @RequestBody TypeTransactionFournisseur entity) {
-        TypeTransactionFournisseur updated = service.update(id, entity);
+    public ResponseEntity<TypeTransactionFournisseurDTO> update(@PathVariable Integer id, @RequestBody TypeTransactionFournisseurDTO dto) {
+        TypeTransactionFournisseurDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 

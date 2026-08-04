@@ -39,7 +39,8 @@ public class TransactionFournisseurLigneController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransactionFournisseurLigneDTO> update(@PathVariable Integer id, @RequestBody TransactionFournisseurLigneDTO dto) {
+    public ResponseEntity<TransactionFournisseurLigneDTO> update(@PathVariable Integer id,
+            @RequestBody TransactionFournisseurLigneDTO dto) {
         TransactionFournisseurLigneDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }

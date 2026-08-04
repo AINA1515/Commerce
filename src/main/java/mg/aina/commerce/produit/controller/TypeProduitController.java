@@ -3,7 +3,7 @@ package mg.aina.commerce.produit.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import mg.aina.commerce.produit.entity.TypeProduit;
+import mg.aina.commerce.produit.dto.TypeProduitDTO;
 import mg.aina.commerce.produit.service.TypeProduitService;
 
 import java.util.List;
@@ -18,24 +18,24 @@ public class TypeProduitController {
     }
 
     @GetMapping
-    public List<TypeProduit> findAll() {
+    public List<TypeProduitDTO> findAll() {
         return typeProduitService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeProduit> findById(@PathVariable Integer id) {
-        TypeProduit typeProduit = typeProduitService.findById(id);
-        return typeProduit != null ? ResponseEntity.ok(typeProduit) : ResponseEntity.notFound().build();
+    public ResponseEntity<TypeProduitDTO> findById(@PathVariable Integer id) {
+        TypeProduitDTO dto = typeProduitService.findById(id);
+        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public TypeProduit create(@RequestBody TypeProduit typeProduit) {
-        return typeProduitService.save(typeProduit);
+    public TypeProduitDTO create(@RequestBody TypeProduitDTO dto) {
+        return typeProduitService.save(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeProduit> update(@PathVariable Integer id, @RequestBody TypeProduit typeProduit) {
-        TypeProduit updated = typeProduitService.update(id, typeProduit);
+    public ResponseEntity<TypeProduitDTO> update(@PathVariable Integer id, @RequestBody TypeProduitDTO dto) {
+        TypeProduitDTO updated = typeProduitService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 

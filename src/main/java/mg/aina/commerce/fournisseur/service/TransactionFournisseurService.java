@@ -11,7 +11,6 @@ import mg.aina.commerce.utilisateur.entity.Utilisateur;
 import mg.aina.commerce.utilisateur.repository.UtilisateurRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionFournisseurService {
@@ -30,7 +29,7 @@ public class TransactionFournisseurService {
     public List<TransactionFournisseurDTO> findAll() {
         return transactionFournisseurRepository.findAll().stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public TransactionFournisseurDTO findById(Integer id) {

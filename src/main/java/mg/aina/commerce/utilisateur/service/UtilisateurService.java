@@ -24,7 +24,7 @@ public class UtilisateurService {
     public List<UtilisateurDTO> findAll() {
         return utilisateurRepository.findAll().stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public UtilisateurDTO findById(Integer id) {

@@ -13,7 +13,6 @@ import mg.aina.commerce.produit.entity.Produit;
 import mg.aina.commerce.produit.repository.ProduitRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionFournisseurLigneService {
@@ -35,7 +34,7 @@ public class TransactionFournisseurLigneService {
     public List<TransactionFournisseurLigneDTO> findAll() {
         return ligneRepository.findAll().stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public TransactionFournisseurLigneDTO findById(Integer id) {
@@ -47,7 +46,7 @@ public class TransactionFournisseurLigneService {
     public List<TransactionFournisseurLigneDTO> findByFournisseurId(Integer fournisseurId) {
         return ligneRepository.findByFournisseurId(fournisseurId).stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public TransactionFournisseurLigneDTO save(TransactionFournisseurLigneDTO dto) {
@@ -85,7 +84,6 @@ public class TransactionFournisseurLigneService {
 
     private TransactionFournisseurLigneDTO toDTO(TransactionFournisseurLigne ligne) {
         return new TransactionFournisseurLigneDTO(
-                ligne.getId(),
                 ligne.getFournisseur() != null ? ligne.getFournisseur().getId() : null,
                 ligne.getFournisseur() != null ? ligne.getFournisseur().getNom() + " " + ligne.getFournisseur().getPrenom() : null,
                 ligne.getTransactionFournisseur() != null ? ligne.getTransactionFournisseur().getId() : null,

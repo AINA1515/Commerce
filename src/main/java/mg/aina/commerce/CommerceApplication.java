@@ -1,16 +1,19 @@
 package mg.aina.commerce;
+
+import java.util.logging.Logger;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"mg.itwu"})
+@ComponentScan(basePackages = { "mg.aina" })
 public class CommerceApplication {
+    Logger logger = Logger.getLogger(getClass().getName());
 
     public static void main(String[] args) {
         SpringApplication.run(CommerceApplication.class, args);
-        System.out.println("Application démarrée !");
+        // logger.info("Application démarrée !");
     }
-
 }
