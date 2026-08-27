@@ -2,10 +2,8 @@ package mg.aina.commerce.depense.service;
 
 import mg.aina.commerce.depense.dto.HistoriqueDepenseDTO;
 import mg.aina.commerce.depense.entity.HistoriqueDepense;
-import mg.aina.commerce.depense.entity.TypeDepense;
 import mg.aina.commerce.depense.repository.HistoriqueDepenseRepository;
 import mg.aina.commerce.depense.repository.TypeDepenseRepository;
-import mg.aina.commerce.utilisateur.entity.Utilisateur;
 import mg.aina.commerce.utilisateur.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 

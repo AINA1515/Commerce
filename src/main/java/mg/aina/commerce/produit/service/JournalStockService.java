@@ -13,8 +13,6 @@ import mg.aina.commerce.utilisateur.entity.Utilisateur;
 import mg.aina.commerce.utilisateur.repository.UtilisateurRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class JournalStockService {
     private final JournalStockRepository journalStockRepository;

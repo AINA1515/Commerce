@@ -38,6 +38,11 @@ public class ProduitService {
         produit.setDescription(dto.getDescription());
         produit.setStockMinimum(dto.getStockMinimum());
         TypeProduit typeProduit = typeProduitRepository.findById(dto.getIdTypeProduit()).orElse(null);
+
+        if (typeProduit == null) {
+            return null;
+        }
+        
         produit.setTypeProduit(typeProduit);
         return toDTO(produitRepository.save(produit));
     }
@@ -67,7 +72,6 @@ public class ProduitService {
                 produit.getTypeProduit() != null ? produit.getTypeProduit().getId() : null,
                 produit.getTypeProduit() != null ? produit.getTypeProduit().getNom() : null,
                 produit.getStockMinimum(),
-                produit.getDateCreation()
-        );
+                produit.getDateCreation());
     }
 }

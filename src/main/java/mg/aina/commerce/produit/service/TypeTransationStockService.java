@@ -7,7 +7,6 @@ import mg.aina.commerce.produit.entity.TypeTransationStock;
 import mg.aina.commerce.produit.repository.TypeTransationStockRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TypeTransationStockService {

@@ -7,7 +7,6 @@ import mg.aina.commerce.produit.entity.TypeProduit;
 import mg.aina.commerce.produit.repository.TypeProduitRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TypeProduitService {

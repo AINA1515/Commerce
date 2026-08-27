@@ -7,7 +7,6 @@ import mg.aina.commerce.client.entity.Client;
 import mg.aina.commerce.client.repository.ClientRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ClientService {

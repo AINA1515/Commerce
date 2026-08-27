@@ -9,8 +9,6 @@ import mg.aina.commerce.produit.repository.ProduitRepository;
 import mg.aina.commerce.produit.repository.StockProduitRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class StockProduitService {
     private final StockProduitRepository stockProduitRepository;
