@@ -242,7 +242,13 @@ const CrudPage = (function () {
         hideAlert();
         const payload = collectFormData();
         const isEdit = editingId !== null;
-        const url = isEdit ? config.apiUrl + '/' + editingId : config.apiUrl;
+        
+        let direction = 0;
+        if(config.apiUrl == "/api/stock-produits"){
+            direction = 2;
+        }
+
+        const url = isEdit ? config.apiUrl + '/' + editingId + '/' + direction : config.apiUrl;
         const method = isEdit ? 'PUT' : 'POST';
 
         fetch(url, {

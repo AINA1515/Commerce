@@ -18,7 +18,7 @@ public class JournalStock {
 
     @ManyToOne
     @JoinColumn(name = "id_type_transaction_stock", nullable = false)
-    private TypeTransationStock typeTransationStock;
+    private TypeTransactionStock typeTransactionStock;
 
     @Column(nullable = false)
     private Integer quantite;
@@ -33,10 +33,10 @@ public class JournalStock {
     public JournalStock() {
     }
 
-    public JournalStock(Integer id, Produit produit, TypeTransationStock typeTransationStock, Integer quantite, Utilisateur utilisateur) {
+    public JournalStock(Integer id, Produit produit, TypeTransactionStock typeTransactionStock, Integer quantite, Utilisateur utilisateur) {
         this.id = id;
         this.produit = produit;
-        this.typeTransationStock = typeTransationStock;
+        this.typeTransactionStock = typeTransactionStock;
         this.quantite = quantite;
         this.utilisateur = utilisateur;
     }
@@ -57,12 +57,12 @@ public class JournalStock {
         this.produit = produit;
     }
 
-    public TypeTransationStock getTypeTransationStock() {
-        return typeTransationStock;
+    public TypeTransactionStock getTypeTransactionStock() {
+        return typeTransactionStock;
     }
 
-    public void setTypeTransationStock(TypeTransationStock typeTransationStock) {
-        this.typeTransationStock = typeTransationStock;
+    public void setTypeTransactionStock(TypeTransactionStock typeTransactionStock) {
+        this.typeTransactionStock = typeTransactionStock;
     }
 
     public Integer getQuantite() {

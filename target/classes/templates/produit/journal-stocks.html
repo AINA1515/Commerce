@@ -35,14 +35,14 @@
         columns: [
             { key: "id", label: "ID", type: "text" },
             { key: "nomProduit", label: "Produit", type: "text" },
-            { key: "nomTypeTransationStock", label: "Type de transaction", type: "text" },
+            { key: "nomTypeTransactionStock", label: "Type de transaction", type: "text" },
             { key: "quantite", label: "Quantite", type: "text" },
             { key: "nomUtilisateur", label: "Utilisateur", type: "text" },
             { key: "dateModification", label: "Modifie le", type: "date" },
         ],
         fields: [
             { key: "idProduit", label: "Produit", type: "select", required: true, select: { url: "/api/produits", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
-            { key: "idTypeTransationStock", label: "Type de transaction", type: "select", required: true, select: { url: "/api/type-transation-stocks", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
+            { key: "idTypeTransactionStock", label: "Type de transaction", type: "select", required: true, select: { url: "/api/type-transation-stocks", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
             { key: "quantite", label: "Quantite", type: "number", required: true },
             { key: "idUtilisateur", label: "Utilisateur", type: "select", required: true, select: { url: "/api/utilisateurs", valueKey: "id", labelFormat: function(o) { return (o.nom || '') + ' ' + (o.prenom || ''); } } },
         ]

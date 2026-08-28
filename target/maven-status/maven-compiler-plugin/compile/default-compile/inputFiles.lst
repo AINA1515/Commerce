@@ -2,7 +2,7 @@
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/controller/PayementController.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/caisse/repository/CaisseRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/service/JournalCommandeFilleService.java
-/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/controller/TypeTransationStockController.java
+/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/repository/TypeTransactionStockRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/repository/StockProduitRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/depense/service/HistoriqueDepenseService.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/fournisseur/entity/TransactionFournisseurLigne.java
@@ -29,7 +29,6 @@
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/service/StatusLigneCommandeService.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/fournisseur/dto/TransactionFournisseurLigneDTO.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/fournisseur/service/TransactionFournisseurService.java
-/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/entity/TypeTransationStock.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/depense/entity/HistoriqueDepense.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/depense/entity/TypeDepense.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/controller/JournalCommandeController.java
@@ -57,15 +56,16 @@
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/entity/LigneCommande.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/fournisseur/repository/TransactionFournisseurLigneRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/fournisseur/repository/FournisseurRepository.java
+/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/entity/TypeTransactionStock.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/remise/controller/TypeChangementRemiseController.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/fournisseur/entity/Fournisseur.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/depense/controller/TypeDepenseController.java
-/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/dto/TypeTransationStockDTO.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/fournisseur/controller/TransactionFournisseurController.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/remise/entity/Remise.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/entity/JournalCommande.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/CommerceApplication.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/service/TypeProduitService.java
+/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/dto/TypeTransactionStockDTO.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/entity/Commande.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/remise/repository/HistoriqueRemiseRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/service/LigneCommandeService.java
@@ -94,6 +94,7 @@
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/utilisateur/repository/UtilisateurRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/depense/repository/HistoriqueDepenseRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/repository/LigneCommandeRepository.java
+/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/service/TypeTransactionStockService.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/entity/TypeTransactionCommande.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/entity/JournalStock.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/entity/JournalCommandeFille.java
@@ -102,10 +103,9 @@
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/commande/repository/StatusCommandeRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/remise/service/HistoriqueRemiseService.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/controller/TypeProduitController.java
-/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/repository/TypeTransationStockRepository.java
-/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/service/TypeTransationStockService.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/utilisateur/web/UtilisateurPageController.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/depense/dto/HistoriqueDepenseDTO.java
+/home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/produit/controller/TypeTransactionStockController.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/utilisateur/repository/RoleRepository.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/remise/web/RemisePageController.java
 /home/aina/Documents/Perso/Commerce/src/main/java/mg/aina/commerce/caisse/service/CaisseService.java

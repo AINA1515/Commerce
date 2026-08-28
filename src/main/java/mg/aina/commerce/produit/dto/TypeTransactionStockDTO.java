@@ -1,21 +1,13 @@
-package mg.aina.commerce.produit.entity;
+package mg.aina.commerce.produit.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "type_transation_stock")
-public class TypeTransationStock {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TypeTransactionStockDTO {
     private Integer id;
-
-    @Column(nullable = false)
     private String nom;
 
-    public TypeTransationStock() {
+    public TypeTransactionStockDTO() {
     }
 
-    public TypeTransationStock(Integer id, String nom) {
+    public TypeTransactionStockDTO(Integer id, String nom) {
         this.id = id;
         this.nom = nom;
     }

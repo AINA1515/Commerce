@@ -33,9 +33,9 @@ public class StockProduitController {
         return stockProduitService.save(dto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<StockProduitDTO> update(@PathVariable Integer id, @RequestBody StockProduitDTO dto) {
-        StockProduitDTO updated = stockProduitService.update(id, dto);
+    @PutMapping("/{id}/{typeTransaction}")
+    public ResponseEntity<StockProduitDTO> update(@PathVariable Integer id,@PathVariable Integer typeTransaction, @RequestBody StockProduitDTO dto) {
+        StockProduitDTO updated = stockProduitService.update(id, dto,typeTransaction);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
