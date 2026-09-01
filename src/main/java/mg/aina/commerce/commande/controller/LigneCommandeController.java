@@ -27,7 +27,7 @@ public class LigneCommandeController {
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/commande/{commandeId}")
+    @GetMapping("/commande/{id}")
     public List<LigneCommandeDTO> findByCommandeId(@PathVariable("id") Integer commandeId) {
         return service.findByCommandeId(commandeId);
     }

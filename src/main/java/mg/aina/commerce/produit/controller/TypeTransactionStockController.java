@@ -13,8 +13,8 @@ import java.util.List;
 public class TypeTransactionStockController {
     private final TypeTransactionStockService typeTransactionStockService;
 
-    public TypeTransactionStockController(TypeTransactionStockService TypeTransactionStockService) {
-        this.typeTransactionStockService = TypeTransactionStockService;
+    public TypeTransactionStockController(TypeTransactionStockService typeTransactionStockService) {
+        this.typeTransactionStockService = typeTransactionStockService;
     }
 
     @GetMapping

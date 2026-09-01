@@ -27,7 +27,7 @@ public class PayementController {
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/ligne-commande/{ligneCommandeId}")
+    @GetMapping("/ligne-commande/{id}")
     public List<PayementDTO> findByLigneCommandeId(@PathVariable("id") Integer ligneCommandeId) {
         return service.findByLigneCommandeId(ligneCommandeId);
     }

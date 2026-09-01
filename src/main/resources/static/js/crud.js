@@ -21,7 +21,7 @@ const CrudPage = (function () {
         }
         if (type === 'date') {
             const d = new Date(value);
-            return isNaN(d.getTime()) ? value : d.toLocaleString('fr-FR');
+            return Number.isNaN(d.getTime()) ? value : d.toLocaleString('fr-FR');
         }
         if (type === 'bool') {
             return value === true || value === 'true'
@@ -30,7 +30,7 @@ const CrudPage = (function () {
         }
         if (type === 'money') {
             const n = Number(value);
-            return isNaN(n) ? value : n.toLocaleString('fr-FR');
+            return Number.isNaN(n) ? value : n.toLocaleString('fr-FR');
         }
         return escapeHtml(String(value));
     }
