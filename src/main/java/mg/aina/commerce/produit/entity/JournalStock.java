@@ -17,7 +17,7 @@ public class JournalStock {
     private Produit produit;
 
     @ManyToOne
-    @JoinColumn(name = "id_type_transaction_stock", nullable = false)
+    @JoinColumn(name = "id_type_transaction_stock",nullable = false)
     private TypeTransactionStock typeTransactionStock;
 
     @Column(nullable = false)

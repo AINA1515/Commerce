@@ -56,7 +56,7 @@ public class JournalStockService {
         if(produit == null){
             return null;
         }
-        TypeTransactionStock typeTransactionStock = typeTransactionStockRepository.findByNom(dto.getNomProduit())
+        TypeTransactionStock typeTransactionStock = typeTransactionStockRepository.findByNom(dto.getNomTypeTransactionStock())
                 .orElse(null);
         Utilisateur utilisateur = utilisateurRepository.findById(dto.getIdUtilisateur()).orElse(null);
         journalStock.setProduit(produit);
@@ -72,7 +72,7 @@ public class JournalStockService {
         }
         journalStock.setQuantite(dto.getQuantite());
         Produit produit = produitRepository.findById(dto.getIdProduit()).orElse(null);
-        TypeTransactionStock typeTransactionStock = typeTransactionStockRepository.findByNom(dto.getNomProduit()).orElse(null);
+        TypeTransactionStock typeTransactionStock = typeTransactionStockRepository.findByNom(dto.getNomTypeTransactionStock()).orElse(null);
         Utilisateur utilisateur = utilisateurRepository.findById(dto.getIdUtilisateur()).orElse(null);
         journalStock.setProduit(produit);
         journalStock.setTypeTransactionStock(typeTransactionStock);

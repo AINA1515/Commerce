@@ -54,7 +54,7 @@ public class StockProduitService {
         stockProduit.setProduit(produit);
 
         JournalStockDTO jsDto = new JournalStockDTO(stockProduit.getProduit().getId(), dto.getNomProduit(),
-                typeTransactionStockService.findById(1).getNom(), dto.getQuantiteStock(), null, null, null);
+                typeTransactionStockService.findById(1).getNom(), dto.getQuantiteStock(), 1, "test", null);
         if (this.journalStockService.save(jsDto) == null) {
             return null;
         }
@@ -77,7 +77,7 @@ public class StockProduitService {
         stockProduit.setProduit(produit);
 
         JournalStockDTO jsDto = new JournalStockDTO(stockProduit.getId(), dto.getNomProduit(),
-                typeTransactionStockService.findById(idTypeTransaction).getNom(), dto.getQuantiteStock(), null, null,
+                typeTransactionStockService.findById(idTypeTransaction).getNom(), dto.getQuantiteStock(), 1, "test",
                 null);
         if (this.journalStockService.save(jsDto) == null) {
             return null;

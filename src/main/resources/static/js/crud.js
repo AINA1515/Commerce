@@ -243,12 +243,8 @@ const CrudPage = (function () {
         const payload = collectFormData();
         const isEdit = editingId !== null;
         
-        let direction = 0;
-        if(config.apiUrl == "/api/stock-produits"){
-            direction = 2;
-        }
 
-        const url = isEdit ? config.apiUrl + '/' + editingId + '/' + direction : config.apiUrl;
+        const url = isEdit ? config.apiUrl + '/' + editingId : config.apiUrl;
         const method = isEdit ? 'PUT' : 'POST';
 
         fetch(url, {
