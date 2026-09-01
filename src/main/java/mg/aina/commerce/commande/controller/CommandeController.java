@@ -22,7 +22,7 @@ public class CommandeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CommandeDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<CommandeDTO> findById(@PathVariable("id") Integer id) {
         CommandeDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class CommandeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommandeDTO> update(@PathVariable Integer id, @RequestBody CommandeDTO dto) {
+    public ResponseEntity<CommandeDTO> update(@PathVariable("id") Integer id, @RequestBody CommandeDTO dto) {
         CommandeDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

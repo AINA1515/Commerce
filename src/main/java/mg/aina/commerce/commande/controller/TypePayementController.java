@@ -22,7 +22,7 @@ public class TypePayementController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypePayement> findById(@PathVariable Integer id) {
+    public ResponseEntity<TypePayement> findById(@PathVariable("id") Integer id) {
         TypePayement entity = service.findById(id);
         return entity != null ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class TypePayementController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypePayement> update(@PathVariable Integer id, @RequestBody TypePayement entity) {
+    public ResponseEntity<TypePayement> update(@PathVariable("id") Integer id, @RequestBody TypePayement entity) {
         TypePayement updated = service.update(id, entity);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -23,7 +23,7 @@ public class TypeProduitController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeProduitDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<TypeProduitDTO> findById(@PathVariable("id") Integer id) {
         TypeProduitDTO dto = typeProduitService.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -34,13 +34,13 @@ public class TypeProduitController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeProduitDTO> update(@PathVariable Integer id, @RequestBody TypeProduitDTO dto) {
+    public ResponseEntity<TypeProduitDTO> update(@PathVariable("id") Integer id, @RequestBody TypeProduitDTO dto) {
         TypeProduitDTO updated = typeProduitService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         typeProduitService.delete(id);
         return ResponseEntity.noContent().build();
     }

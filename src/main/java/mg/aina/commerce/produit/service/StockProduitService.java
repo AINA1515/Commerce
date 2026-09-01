@@ -53,11 +53,11 @@ public class StockProduitService {
         }
         stockProduit.setProduit(produit);
 
-        // JournalStockDTO jsDto = new JournalStockDTO(stockProduit.getProduit().getId(), dto.getNomProduit(),
-        //         typeTransactionStockService.findById(1).getNom(), dto.getQuantiteStock(), null, null, null);
-        // if (this.journalStockService.save(jsDto) == null) {
-        //     return null;
-        // }
+        JournalStockDTO jsDto = new JournalStockDTO(stockProduit.getProduit().getId(), dto.getNomProduit(),
+                typeTransactionStockService.findById(1).getNom(), dto.getQuantiteStock(), null, null, null);
+        if (this.journalStockService.save(jsDto) == null) {
+            return null;
+        }
         return toDTO(stockProduitRepository.save(stockProduit));
     }
 

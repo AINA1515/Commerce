@@ -23,7 +23,7 @@ public class FournisseurController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FournisseurDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<FournisseurDTO> findById(@PathVariable("id") Integer id) {
         FournisseurDTO dto = fournisseurService.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -34,13 +34,13 @@ public class FournisseurController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FournisseurDTO> update(@PathVariable Integer id, @RequestBody FournisseurDTO dto) {
+    public ResponseEntity<FournisseurDTO> update(@PathVariable("id") Integer id, @RequestBody FournisseurDTO dto) {
         FournisseurDTO updated = fournisseurService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         fournisseurService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -23,7 +23,7 @@ public class TransactionFournisseurController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TransactionFournisseurDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<TransactionFournisseurDTO> findById(@PathVariable("id") Integer id) {
         TransactionFournisseurDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -34,13 +34,13 @@ public class TransactionFournisseurController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransactionFournisseurDTO> update(@PathVariable Integer id, @RequestBody TransactionFournisseurDTO dto) {
+    public ResponseEntity<TransactionFournisseurDTO> update(@PathVariable("id") Integer id, @RequestBody TransactionFournisseurDTO dto) {
         TransactionFournisseurDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

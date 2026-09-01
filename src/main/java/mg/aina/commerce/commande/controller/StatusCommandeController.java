@@ -22,7 +22,7 @@ public class StatusCommandeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StatusCommande> findById(@PathVariable Integer id) {
+    public ResponseEntity<StatusCommande> findById(@PathVariable("id") Integer id) {
         StatusCommande entity = service.findById(id);
         return entity != null ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class StatusCommandeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StatusCommande> update(@PathVariable Integer id, @RequestBody StatusCommande entity) {
+    public ResponseEntity<StatusCommande> update(@PathVariable("id") Integer id, @RequestBody StatusCommande entity) {
         StatusCommande updated = service.update(id, entity);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

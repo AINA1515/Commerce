@@ -23,13 +23,13 @@ public class TransactionFournisseurLigneController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TransactionFournisseurLigneDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<TransactionFournisseurLigneDTO> findById(@PathVariable("id") Integer id) {
         TransactionFournisseurLigneDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/fournisseur/{fournisseurId}")
-    public List<TransactionFournisseurLigneDTO> findByFournisseurId(@PathVariable Integer fournisseurId) {
+    public List<TransactionFournisseurLigneDTO> findByFournisseurId(@PathVariable("id") Integer fournisseurId) {
         return service.findByFournisseurId(fournisseurId);
     }
 
@@ -39,14 +39,14 @@ public class TransactionFournisseurLigneController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransactionFournisseurLigneDTO> update(@PathVariable Integer id,
+    public ResponseEntity<TransactionFournisseurLigneDTO> update(@PathVariable("id") Integer id,
             @RequestBody TransactionFournisseurLigneDTO dto) {
         TransactionFournisseurLigneDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

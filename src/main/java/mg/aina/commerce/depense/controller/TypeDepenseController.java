@@ -18,7 +18,7 @@ public class TypeDepenseController {
     public List<TypeDepense> findAll() { return service.findAll(); }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeDepense> findById(@PathVariable Integer id) {
+    public ResponseEntity<TypeDepense> findById(@PathVariable("id") Integer id) {
         TypeDepense entity = service.findById(id);
         return entity != null ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
     }
@@ -27,13 +27,13 @@ public class TypeDepenseController {
     public TypeDepense create(@RequestBody TypeDepense entity) { return service.save(entity); }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeDepense> update(@PathVariable Integer id, @RequestBody TypeDepense entity) {
+    public ResponseEntity<TypeDepense> update(@PathVariable("id") Integer id, @RequestBody TypeDepense entity) {
         TypeDepense updated = service.update(id, entity);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

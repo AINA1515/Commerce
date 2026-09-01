@@ -23,13 +23,13 @@ public class JournalStockController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JournalStockDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<JournalStockDTO> findById(@PathVariable("id") Integer id) {
         JournalStockDTO dto = journalStockService.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/produit/{produitId}")
-    public List<JournalStockDTO> findByProduitId(@PathVariable Integer produitId) {
+    @GetMapping("/produit/{id}")
+    public List<JournalStockDTO> findByProduitId(@PathVariable("id") Integer produitId) {
         return journalStockService.findByProduitId(produitId);
     }
 
@@ -39,13 +39,13 @@ public class JournalStockController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<JournalStockDTO> update(@PathVariable Integer id, @RequestBody JournalStockDTO dto) {
+    public ResponseEntity<JournalStockDTO> update(@PathVariable("id") Integer id, @RequestBody JournalStockDTO dto) {
         JournalStockDTO updated = journalStockService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         journalStockService.delete(id);
         return ResponseEntity.noContent().build();
     }

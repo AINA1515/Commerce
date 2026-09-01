@@ -22,7 +22,7 @@ public class TypeChangementRemiseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeChangementRemise> findById(@PathVariable Integer id) {
+    public ResponseEntity<TypeChangementRemise> findById(@PathVariable("id") Integer id) {
         TypeChangementRemise entity = service.findById(id);
         return entity != null ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class TypeChangementRemiseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeChangementRemise> update(@PathVariable Integer id, @RequestBody TypeChangementRemise entity) {
+    public ResponseEntity<TypeChangementRemise> update(@PathVariable("id") Integer id, @RequestBody TypeChangementRemise entity) {
         TypeChangementRemise updated = service.update(id, entity);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

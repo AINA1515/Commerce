@@ -22,7 +22,7 @@ public class CaisseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Caisse> findById(@PathVariable Integer id) {
+    public ResponseEntity<Caisse> findById(@PathVariable("id") Integer id) {
         Caisse entity = service.findById(id);
         return entity != null ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class CaisseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Caisse> update(@PathVariable Integer id, @RequestBody Caisse entity) {
+    public ResponseEntity<Caisse> update(@PathVariable("id") Integer id, @RequestBody Caisse entity) {
         Caisse updated = service.update(id, entity);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

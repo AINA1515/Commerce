@@ -23,7 +23,7 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<RoleDTO> findById(@PathVariable("id") Integer id) {
         RoleDTO dto = roleService.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -34,13 +34,13 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDTO> update(@PathVariable Integer id, @RequestBody RoleDTO dto) {
+    public ResponseEntity<RoleDTO> update(@PathVariable("id") Integer id, @RequestBody RoleDTO dto) {
         RoleDTO updated = roleService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         roleService.delete(id);
         return ResponseEntity.noContent().build();
     }

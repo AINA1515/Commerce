@@ -18,7 +18,7 @@ public class HistoriqueDepenseController {
     public List<HistoriqueDepenseDTO> findAll() { return service.findAll(); }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HistoriqueDepenseDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<HistoriqueDepenseDTO> findById(@PathVariable("id") Integer id) {
         HistoriqueDepenseDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -27,13 +27,13 @@ public class HistoriqueDepenseController {
     public HistoriqueDepenseDTO create(@RequestBody HistoriqueDepenseDTO dto) { return service.save(dto); }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HistoriqueDepenseDTO> update(@PathVariable Integer id, @RequestBody HistoriqueDepenseDTO dto) {
+    public ResponseEntity<HistoriqueDepenseDTO> update(@PathVariable("id") Integer id, @RequestBody HistoriqueDepenseDTO dto) {
         HistoriqueDepenseDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

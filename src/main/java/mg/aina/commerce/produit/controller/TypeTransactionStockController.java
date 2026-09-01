@@ -23,7 +23,7 @@ public class TypeTransactionStockController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeTransactionStockDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<TypeTransactionStockDTO> findById(@PathVariable("id") Integer id) {
         TypeTransactionStockDTO dto = typeTransactionStockService.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -34,13 +34,13 @@ public class TypeTransactionStockController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeTransactionStockDTO> update(@PathVariable Integer id, @RequestBody TypeTransactionStockDTO dto) {
+    public ResponseEntity<TypeTransactionStockDTO> update(@PathVariable("id") Integer id, @RequestBody TypeTransactionStockDTO dto) {
         TypeTransactionStockDTO updated = typeTransactionStockService.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         typeTransactionStockService.delete(id);
         return ResponseEntity.noContent().build();
     }

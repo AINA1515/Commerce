@@ -22,7 +22,7 @@ public class RemiseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RemiseDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<RemiseDTO> findById(@PathVariable("id") Integer id) {
         RemiseDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class RemiseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RemiseDTO> update(@PathVariable Integer id, @RequestBody RemiseDTO dto) {
+    public ResponseEntity<RemiseDTO> update(@PathVariable("id") Integer id, @RequestBody RemiseDTO dto) {
         RemiseDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

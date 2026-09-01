@@ -23,7 +23,7 @@ public class StockProduitController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StockProduitDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<StockProduitDTO> findById(@PathVariable("id") Integer id) {
         StockProduitDTO dto = stockProduitService.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -34,13 +34,13 @@ public class StockProduitController {
     }
 
     @PutMapping("/{id}/{typeTransaction}")
-    public ResponseEntity<StockProduitDTO> update(@PathVariable Integer id,@PathVariable Integer typeTransaction, @RequestBody StockProduitDTO dto) {
+    public ResponseEntity<StockProduitDTO> update(@PathVariable("id") Integer id,@PathVariable("typeTransaction") Integer typeTransaction, @RequestBody StockProduitDTO dto) {
         StockProduitDTO updated = stockProduitService.update(id, dto,typeTransaction);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         stockProduitService.delete(id);
         return ResponseEntity.noContent().build();
     }

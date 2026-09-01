@@ -22,13 +22,13 @@ public class PayementController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PayementDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<PayementDTO> findById(@PathVariable("id") Integer id) {
         PayementDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/ligne-commande/{ligneCommandeId}")
-    public List<PayementDTO> findByLigneCommandeId(@PathVariable Integer ligneCommandeId) {
+    public List<PayementDTO> findByLigneCommandeId(@PathVariable("id") Integer ligneCommandeId) {
         return service.findByLigneCommandeId(ligneCommandeId);
     }
 
@@ -38,13 +38,13 @@ public class PayementController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PayementDTO> update(@PathVariable Integer id, @RequestBody PayementDTO dto) {
+    public ResponseEntity<PayementDTO> update(@PathVariable("id") Integer id, @RequestBody PayementDTO dto) {
         PayementDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

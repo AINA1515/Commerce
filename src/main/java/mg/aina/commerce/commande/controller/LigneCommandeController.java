@@ -22,13 +22,13 @@ public class LigneCommandeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LigneCommandeDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<LigneCommandeDTO> findById(@PathVariable("id") Integer id) {
         LigneCommandeDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/commande/{commandeId}")
-    public List<LigneCommandeDTO> findByCommandeId(@PathVariable Integer commandeId) {
+    public List<LigneCommandeDTO> findByCommandeId(@PathVariable("id") Integer commandeId) {
         return service.findByCommandeId(commandeId);
     }
 
@@ -38,13 +38,13 @@ public class LigneCommandeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LigneCommandeDTO> update(@PathVariable Integer id, @RequestBody LigneCommandeDTO dto) {
+    public ResponseEntity<LigneCommandeDTO> update(@PathVariable("id") Integer id, @RequestBody LigneCommandeDTO dto) {
         LigneCommandeDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

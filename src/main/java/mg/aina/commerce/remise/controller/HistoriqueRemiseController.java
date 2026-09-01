@@ -22,7 +22,7 @@ public class HistoriqueRemiseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HistoriqueRemiseDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<HistoriqueRemiseDTO> findById(@PathVariable("id") Integer id) {
         HistoriqueRemiseDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class HistoriqueRemiseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HistoriqueRemiseDTO> update(@PathVariable Integer id, @RequestBody HistoriqueRemiseDTO dto) {
+    public ResponseEntity<HistoriqueRemiseDTO> update(@PathVariable("id") Integer id, @RequestBody HistoriqueRemiseDTO dto) {
         HistoriqueRemiseDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

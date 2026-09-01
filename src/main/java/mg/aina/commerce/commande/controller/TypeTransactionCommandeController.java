@@ -22,7 +22,7 @@ public class TypeTransactionCommandeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TypeTransactionCommande> findById(@PathVariable Integer id) {
+    public ResponseEntity<TypeTransactionCommande> findById(@PathVariable("id") Integer id) {
         TypeTransactionCommande entity = service.findById(id);
         return entity != null ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class TypeTransactionCommandeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TypeTransactionCommande> update(@PathVariable Integer id, @RequestBody TypeTransactionCommande entity) {
+    public ResponseEntity<TypeTransactionCommande> update(@PathVariable("id") Integer id, @RequestBody TypeTransactionCommande entity) {
         TypeTransactionCommande updated = service.update(id, entity);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

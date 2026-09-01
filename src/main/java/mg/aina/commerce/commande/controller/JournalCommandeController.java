@@ -22,7 +22,7 @@ public class JournalCommandeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JournalCommandeDTO> findById(@PathVariable Integer id) {
+    public ResponseEntity<JournalCommandeDTO> findById(@PathVariable("id") Integer id) {
         JournalCommandeDTO dto = service.findById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
@@ -33,13 +33,13 @@ public class JournalCommandeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<JournalCommandeDTO> update(@PathVariable Integer id, @RequestBody JournalCommandeDTO dto) {
+    public ResponseEntity<JournalCommandeDTO> update(@PathVariable("id") Integer id, @RequestBody JournalCommandeDTO dto) {
         JournalCommandeDTO updated = service.update(id, dto);
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
