@@ -84,6 +84,7 @@ public class TransactionFournisseurLigneService {
 
     private TransactionFournisseurLigneDTO toDTO(TransactionFournisseurLigne ligne) {
         return new TransactionFournisseurLigneDTO(
+                ligne.getId(),
                 ligne.getFournisseur() != null ? ligne.getFournisseur().getId() : null,
                 ligne.getFournisseur() != null ? ligne.getFournisseur().getNom() + " " + ligne.getFournisseur().getPrenom() : null,
                 ligne.getTransactionFournisseur() != null ? ligne.getTransactionFournisseur().getId() : null,

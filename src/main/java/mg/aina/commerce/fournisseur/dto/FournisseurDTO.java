@@ -1,6 +1,7 @@
 package mg.aina.commerce.fournisseur.dto;
 
 public class FournisseurDTO {
+    private Integer id;
     private String nom;
     private String prenom;
     private String email;
@@ -9,12 +10,21 @@ public class FournisseurDTO {
     public FournisseurDTO() {
     }
 
-    public FournisseurDTO(String nom, String prenom, String email, String telephone, String adresse) {
+    public FournisseurDTO(Integer id, String nom, String prenom, String email, String telephone, String adresse) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.telephone = telephone;
         this.adresse = adresse;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {

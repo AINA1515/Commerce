@@ -8,48 +8,80 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editProduit != null ? 'Modifier le produit' : 'Ajouter un produit'}">Ajouter un produit</h4>
+        <form th:action="@{/produits/save}" method="post">
+            <input type="hidden" name="id" th:value="${editProduit?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Nom *</label>
+                    <input type="text" name="nom" class="form-control" th:value="${editProduit?.nom}" required/>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" rows="1" th:text="${editProduit?.description}"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Type de produit *</label>
+                    <select name="idTypeProduit" class="form-select" required>
+                        <option value="">-- Choisir --</option>
+                        <option th:each="tp : ${typesProduit}" th:value="${tp.id}"
+                                th:text="${tp.nom}"
+                                th:selected="${editProduit != null && editProduit.idTypeProduit == tp.id}"></option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Stock minimum *</label>
+                    <input type="number" name="stockMinimum" class="form-control" th:value="${editProduit?.stockMinimum}" required/>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/produits}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Produits</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Produits</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Stock min</th>
+                        <th>Cree le</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="p : ${produits}">
+                        <td th:text="${p.id}">1</td>
+                        <td th:text="${p.nom}">Nom</td>
+                        <td th:text="${p.description}">-</td>
+                        <td th:text="${p.nomTypeProduit}">Type</td>
+                        <td th:text="${p.stockMinimum}">0</td>
+                        <td th:text="${p.dateCreation}">-</td>
+                        <td>
+                            <a th:href="@{/produits(edit=${p.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/produits/delete/{id}(id=${p.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer ce produit ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(produits)}">
+                        <td colspan="7" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/modal :: modal}"></div>
-
 <th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/produits",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "nom", label: "Nom", type: "text" },
-            { key: "description", label: "Description", type: "text" },
-            { key: "nomTypeProduit", label: "Type", type: "text" },
-            { key: "stockMinimum", label: "Stock minimum", type: "text" },
-            { key: "dateCreation", label: "Cree le", type: "date" },
-        ],
-        fields: [
-            { key: "nom", label: "Nom", type: "text", required: true },
-            { key: "description", label: "Description", type: "textarea" },
-            { key: "idTypeProduit", label: "Type de produit", type: "select", required: true, select: { url: "/api/type-produits", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
-            { key: "stockMinimum", label: "Stock minimum", type: "number" },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>

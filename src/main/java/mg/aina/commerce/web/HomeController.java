@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Page d'accueil (tableau de bord). Ne fait que renvoyer la vue : les donnees
- * affichees sur chaque page sont chargees cote client via les API REST existantes.
+ * Page d'accueil (tableau de bord). Renvoie la vue index rendue cote serveur
+ * (Thymeleaf).
  */
 @Controller
 public class HomeController {

@@ -57,6 +57,7 @@ public class FournisseurService {
 
     private FournisseurDTO toDTO(Fournisseur fournisseur) {
         return new FournisseurDTO(
+                fournisseur.getId(),
                 fournisseur.getNom(),
                 fournisseur.getPrenom(),
                 fournisseur.getEmail(),

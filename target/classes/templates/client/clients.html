@@ -8,48 +8,75 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editClient != null ? 'Modifier le client' : 'Ajouter un client'}">Ajouter un client</h4>
+        <form th:action="@{/clients/save}" method="post">
+            <input type="hidden" name="id" th:value="${editClient?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Nom *</label>
+                    <input type="text" name="nom" class="form-control" th:value="${editClient?.nom}" required/>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Prenom *</label>
+                    <input type="text" name="prenom" class="form-control" th:value="${editClient?.prenom}" required/>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" th:value="${editClient?.email}"/>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Telephone *</label>
+                    <input type="text" name="telephone" class="form-control" th:value="${editClient?.telephone}" required/>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/clients}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Clients</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Clients</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Telephone</th>
+                        <th>Cree le</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="c : ${clients}">
+                        <td th:text="${c.id}">1</td>
+                        <td th:text="${c.nom}">Nom</td>
+                        <td th:text="${c.prenom}">Prenom</td>
+                        <td th:text="${c.email}">Email</td>
+                        <td th:text="${c.telephone}">Telephone</td>
+                        <td th:text="${c.dateCreation}">-</td>
+                        <td>
+                            <a th:href="@{/clients(edit=${c.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/clients/delete/{id}(id=${c.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer ce client ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(clients)}">
+                        <td colspan="7" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/modal :: modal}"></div>
-
 <th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/clients",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "nom", label: "Nom", type: "text" },
-            { key: "prenom", label: "Prenom", type: "text" },
-            { key: "email", label: "Email", type: "text" },
-            { key: "telephone", label: "Telephone", type: "text" },
-            { key: "dateCreation", label: "Cree le", type: "date" },
-        ],
-        fields: [
-            { key: "nom", label: "Nom", type: "text", required: true },
-            { key: "prenom", label: "Prenom", type: "text", required: true },
-            { key: "email", label: "Email", type: "email" },
-            { key: "telephone", label: "Telephone", type: "text", required: true },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>

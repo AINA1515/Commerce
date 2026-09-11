@@ -8,50 +8,91 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editCommande != null ? 'Modifier la commande' : 'Ajouter une commande'}">Ajouter une commande</h4>
+        <form th:action="@{/commandes/save}" method="post">
+            <input type="hidden" name="id" th:value="${editCommande?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Prix total *</label>
+                    <input type="number" step="0.01" name="prixTotal" class="form-control" th:value="${editCommande?.prixTotal}" required/>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Type de transaction *</label>
+                    <select name="idTypeTransactionCommande" class="form-select" required>
+                        <option value="">-- Choisir --</option>
+                        <option th:each="t : ${typesTransaction}" th:value="${t.id}" th:text="${t.nom}"
+                                th:selected="${editCommande != null and editCommande.idTypeTransactionCommande == t.id}"></option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Utilisateur *</label>
+                    <select name="idUtilisateur" class="form-select" required>
+                        <option value="">-- Choisir --</option>
+                        <option th:each="u : ${utilisateurs}" th:value="${u.id}" th:text="${u.nom + ' ' + u.prenom}"
+                                th:selected="${editCommande != null and editCommande.idUtilisateur == u.id}"></option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Client *</label>
+                    <select name="idClient" class="form-select" required>
+                        <option value="">-- Choisir --</option>
+                        <option th:each="c : ${clients}" th:value="${c.id}" th:text="${c.nom + ' ' + c.prenom}"
+                                th:selected="${editCommande != null and editCommande.idClient == c.id}"></option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Montant paye</label>
+                    <input type="number" step="0.01" name="montantPayee" class="form-control" th:value="${editCommande?.montantPayee}"/>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/commandes}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Commandes</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Commandes</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Prix total</th>
+                        <th>Type</th>
+                        <th>Utilisateur</th>
+                        <th>Client</th>
+                        <th>Montant paye</th>
+                        <th>Modifie le</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="c : ${commandes}">
+                        <td th:text="${c.id}">1</td>
+                        <td th:text="${c.prixTotal}">0</td>
+                        <td th:text="${c.nomTypeTransactionCommande}">Type</td>
+                        <td th:text="${c.nomUtilisateur}">Utilisateur</td>
+                        <td th:text="${c.nomClient}">Client</td>
+                        <td th:text="${c.montantPayee}">0</td>
+                        <td th:text="${c.dateModification}">-</td>
+                        <td>
+                            <a th:href="@{/commandes(edit=${c.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/commandes/delete/{id}(id=${c.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cette commande ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(commandes)}">
+                        <td colspan="8" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
-
-<div th:replace="~{fragments/modal :: modal}"></div>
-
-<th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/commandes",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "prixTotal", label: "Prix total", type: "money" },
-            { key: "nomTypeTransactionCommande", label: "Type", type: "text" },
-            { key: "nomUtilisateur", label: "Utilisateur", type: "text" },
-            { key: "nomClient", label: "Client", type: "text" },
-            { key: "montantPayee", label: "Montant paye", type: "money" },
-            { key: "dateModification", label: "Modifie le", type: "date" },
-        ],
-        fields: [
-            { key: "prixTotal", label: "Prix total", type: "number", required: true, step: "0.01" },
-            { key: "idTypeTransactionCommande", label: "Type de transaction", type: "select", required: true, select: { url: "/api/type-transaction-commandes", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
-            { key: "idUtilisateur", label: "Utilisateur", type: "select", required: true, select: { url: "/api/utilisateurs", valueKey: "id", labelFormat: function(o) { return (o.nom || '') + ' ' + (o.prenom || ''); } } },
-            { key: "idClient", label: "Client", type: "select", required: true, select: { url: "/api/clients", valueKey: "id", labelFormat: function(o) { return (o.nom || '') + ' ' + (o.prenom || ''); } } },
-            { key: "montantPayee", label: "Montant paye", type: "number", step: "0.01" },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>

@@ -8,48 +8,89 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editHistorique != null ? 'Modifier la depense' : 'Ajouter une depense'}">Ajouter une depense</h4>
+        <form th:action="@{/depenses/save}" method="post">
+            <input type="hidden" name="id" th:value="${editHistorique?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Utilisateur *</label>
+                    <select name="idUtilisateur" class="form-select" required>
+                        <option value="" th:selected="${editHistorique?.idUtilisateur == null}">-- Choisir --</option>
+                        <option th:each="u : ${utilisateurs}"
+                                th:value="${u.id}"
+                                th:text="${u.nom + ' ' + u.prenom}"
+                                th:selected="${editHistorique?.idUtilisateur == u.id}">Utilisateur</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Type de depense *</label>
+                    <select name="idTypeDepense" class="form-select" required>
+                        <option value="" th:selected="${editHistorique?.idTypeDepense == null}">-- Choisir --</option>
+                        <option th:each="t : ${typesDepense}"
+                                th:value="${t.id}"
+                                th:text="${t.nom}"
+                                th:selected="${editHistorique?.idTypeDepense == t.id}">Type</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Montant *</label>
+                    <input type="number" step="0.01" name="montant" class="form-control"
+                           th:value="${editHistorique?.montant}" required/>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" rows="3"
+                              th:text="${editHistorique?.description}"></textarea>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/depenses}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Historique des depenses</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Historique des depenses</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Utilisateur</th>
+                        <th>Type</th>
+                        <th>Montant</th>
+                        <th>Description</th>
+                        <th>Cree le</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="h : ${historiques}">
+                        <td th:text="${h.id}">1</td>
+                        <td th:text="${h.nomUtilisateur}">Utilisateur</td>
+                        <td th:text="${h.nomTypeDepense}">Type</td>
+                        <td th:text="${#numbers.formatDecimal(h.montant, 1, 2)}">0.00</td>
+                        <td th:text="${h.description}">Description</td>
+                        <td th:text="${h.dateCreation}">Date</td>
+                        <td>
+                            <a th:href="@{/depenses(edit=${h.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/depenses/delete/{id}(id=${h.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cette depense ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(historiques)}">
+                        <td colspan="7" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/modal :: modal}"></div>
-
 <th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/historique-depenses",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "nomUtilisateur", label: "Utilisateur", type: "text" },
-            { key: "nomTypeDepense", label: "Type", type: "text" },
-            { key: "montant", label: "Montant", type: "money" },
-            { key: "description", label: "Description", type: "text" },
-            { key: "dateCreation", label: "Cree le", type: "date" },
-        ],
-        fields: [
-            { key: "idUtilisateur", label: "Utilisateur", type: "select", required: true, select: { url: "/api/utilisateurs", valueKey: "id", labelFormat: function(o) { return (o.nom || '') + ' ' + (o.prenom || ''); } } },
-            { key: "idTypeDepense", label: "Type de depense", type: "select", required: true, select: { url: "/api/type-depenses", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
-            { key: "montant", label: "Montant", type: "number", required: true, step: "0.01" },
-            { key: "description", label: "Description", type: "textarea" },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>

@@ -3,6 +3,7 @@ package mg.aina.commerce.fournisseur.dto;
 import java.sql.Timestamp;
 
 public class TransactionFournisseurLigneDTO {
+    private Integer id;
     private Integer idFournisseur;
     private String nomFournisseur;
     private Integer idTransactionFournisseur;
@@ -15,7 +16,8 @@ public class TransactionFournisseurLigneDTO {
     public TransactionFournisseurLigneDTO() {
     }
 
-    public TransactionFournisseurLigneDTO(Integer idFournisseur, String nomFournisseur, Integer idTransactionFournisseur, Integer idProduit, String nomProduit, Integer quantite, Double montant, Timestamp dateCreation) {
+    public TransactionFournisseurLigneDTO(Integer id, Integer idFournisseur, String nomFournisseur, Integer idTransactionFournisseur, Integer idProduit, String nomProduit, Integer quantite, Double montant, Timestamp dateCreation) {
+        this.id = id;
         this.idFournisseur = idFournisseur;
         this.nomFournisseur = nomFournisseur;
         this.idTransactionFournisseur = idTransactionFournisseur;
@@ -24,6 +26,14 @@ public class TransactionFournisseurLigneDTO {
         this.quantite = quantite;
         this.montant = montant;
         this.dateCreation = dateCreation;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getIdFournisseur() {

@@ -8,42 +8,58 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editCaisse != null ? 'Modifier la caisse' : 'Ajouter une caisse'}">Ajouter une caisse</h4>
+        <form th:action="@{/caisse/save}" method="post">
+            <input type="hidden" name="id" th:value="${editCaisse?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Solde *</label>
+                    <input type="number" step="0.01" name="solde" class="form-control"
+                           th:value="${editCaisse?.solde}" required/>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/caisse}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Caisse</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Caisse</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Solde</th>
+                        <th>Modifie le</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="c : ${caisses}">
+                        <td th:text="${c.id}">1</td>
+                        <td th:text="${#numbers.formatDecimal(c.solde, 1, 2)}">0.00</td>
+                        <td th:text="${c.dateModification}">Date</td>
+                        <td>
+                            <a th:href="@{/caisse(edit=${c.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/caisse/delete/{id}(id=${c.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cette caisse ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(caisses)}">
+                        <td colspan="4" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/modal :: modal}"></div>
-
 <th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/caisse",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "solde", label: "Solde", type: "money" },
-            { key: "dateModification", label: "Modifie le", type: "date" },
-        ],
-        fields: [
-            { key: "solde", label: "Solde", type: "number", required: true, step: "0.01" },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>

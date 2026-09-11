@@ -8,49 +8,84 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editUtilisateur != null ? 'Modifier l utilisateur' : 'Ajouter un utilisateur'}">Ajouter un utilisateur</h4>
+        <form th:action="@{/utilisateurs/save}" method="post">
+            <input type="hidden" name="id" th:value="${editUtilisateur?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Nom *</label>
+                    <input type="text" name="nom" class="form-control" th:value="${editUtilisateur?.nom}" required/>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Prenom *</label>
+                    <input type="text" name="prenom" class="form-control" th:value="${editUtilisateur?.prenom}" required/>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Email *</label>
+                    <input type="email" name="email" class="form-control" th:value="${editUtilisateur?.email}" required/>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Role *</label>
+                    <select name="idRole" class="form-select" required>
+                        <option value="">-- Choisir --</option>
+                        <option th:each="r : ${roles}" th:value="${r.id}"
+                                th:text="${r.nom}"
+                                th:selected="${editUtilisateur != null && editUtilisateur.idRole == r.id}"></option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" th:text="${editUtilisateur != null ? 'Nouveau mot de passe (laisser vide)' : 'Mot de passe *'}">Mot de passe</label>
+                    <input type="password" name="motDePasse" class="form-control" th:required="${editUtilisateur == null}"/>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/utilisateurs}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Utilisateurs</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Utilisateurs</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Cree le</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="u : ${utilisateurs}">
+                        <td th:text="${u.id}">1</td>
+                        <td th:text="${u.nom}">Nom</td>
+                        <td th:text="${u.prenom}">Prenom</td>
+                        <td th:text="${u.email}">Email</td>
+                        <td th:text="${u.nomRole}">Role</td>
+                        <td th:text="${u.dateCreation}">-</td>
+                        <td>
+                            <a th:href="@{/utilisateurs(edit=${u.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/utilisateurs/delete/{id}(id=${u.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cet utilisateur ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(utilisateurs)}">
+                        <td colspan="7" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/modal :: modal}"></div>
-
 <th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/utilisateurs",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "nom", label: "Nom", type: "text" },
-            { key: "prenom", label: "Prenom", type: "text" },
-            { key: "email", label: "Email", type: "text" },
-            { key: "nomRole", label: "Role", type: "text" },
-            { key: "dateCreation", label: "Cree le", type: "date" },
-        ],
-        fields: [
-            { key: "nom", label: "Nom", type: "text", required: true },
-            { key: "prenom", label: "Prenom", type: "text", required: true },
-            { key: "email", label: "Email", type: "email", required: true },
-            { key: "idRole", label: "Role", type: "select", required: true, select: { url: "/api/roles", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
-            { key: "motDePasse", label: "Mot de passe", type: "password", placeholder: "Laisser vide pour ne pas changer", optionalOnEdit: true },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>

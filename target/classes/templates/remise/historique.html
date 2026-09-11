@@ -8,51 +8,101 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editHistorique != null ? 'Modifier l\'historique' : 'Ajouter un historique'}">Ajouter un historique</h4>
+        <form th:action="@{/remises/historique/save}" method="post">
+            <input type="hidden" name="id" th:value="${editHistorique?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Utilisateur *</label>
+                    <select name="idUtilisateur" class="form-select" required>
+                        <option value="" th:selected="${editHistorique?.idUtilisateur == null}">-- Choisir --</option>
+                        <option th:each="u : ${utilisateurs}"
+                                th:value="${u.id}"
+                                th:text="${u.nom + ' ' + u.prenom}"
+                                th:selected="${editHistorique?.idUtilisateur == u.id}">Utilisateur</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Type de changement *</label>
+                    <select name="idTypeChangement" class="form-select" required>
+                        <option value="" th:selected="${editHistorique?.idTypeChangement == null}">-- Choisir --</option>
+                        <option th:each="t : ${typesChangement}"
+                                th:value="${t.id}"
+                                th:text="${t.nom}"
+                                th:selected="${editHistorique?.idTypeChangement == t.id}">Type</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Pourcentage *</label>
+                    <input type="number" step="0.01" name="pourcentage" class="form-control"
+                           th:value="${editHistorique?.pourcentage}" required/>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Date de retour</label>
+                    <input type="date" name="dateRetour" class="form-control"
+                           th:value="${editHistorique?.dateRetour != null ? #temporals.format(editHistorique.dateRetour, 'yyyy-MM-dd') : ''}"/>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Date de fin</label>
+                    <input type="date" name="dateFin" class="form-control"
+                           th:value="${editHistorique?.dateFin != null ? #temporals.format(editHistorique.dateFin, 'yyyy-MM-dd') : ''}"/>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label d-block">Disponible</label>
+                    <input type="checkbox" name="disponibilite" class="form-check-input me-2"
+                           th:checked="${editHistorique?.disponibilite == true}"/>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/remises/historique}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Historique des remises</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Historique des remises</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Utilisateur</th>
+                        <th>Pourcentage</th>
+                        <th>Retour</th>
+                        <th>Fin</th>
+                        <th>Disponible</th>
+                        <th>Type de changement</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="h : ${historiques}">
+                        <td th:text="${h.id}">1</td>
+                        <td th:text="${h.nomUtilisateur}">Utilisateur</td>
+                        <td th:text="${#numbers.formatDecimal(h.pourcentage, 1, 2)}">0.00</td>
+                        <td th:text="${h.dateRetour}">Date</td>
+                        <td th:text="${h.dateFin}">Date</td>
+                        <td th:text="${h.disponibilite ? 'Oui' : 'Non'}">Oui</td>
+                        <td th:text="${h.nomTypeChangement}">Type</td>
+                        <td>
+                            <a th:href="@{/remises/historique(edit=${h.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/remises/historique/delete/{id}(id=${h.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer cet historique ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(historiques)}">
+                        <td colspan="8" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/modal :: modal}"></div>
-
 <th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/historique-remises",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "nomUtilisateur", label: "Utilisateur", type: "text" },
-            { key: "pourcentage", label: "Pourcentage", type: "text" },
-            { key: "dateRetour", label: "Retour", type: "date" },
-            { key: "dateFin", label: "Fin", type: "date" },
-            { key: "disponibilite", label: "Disponible", type: "bool" },
-            { key: "nomTypeChangement", label: "Type de changement", type: "text" },
-        ],
-        fields: [
-            { key: "idUtilisateur", label: "Utilisateur", type: "select", required: true, select: { url: "/api/utilisateurs", valueKey: "id", labelFormat: function(o) { return (o.nom || '') + ' ' + (o.prenom || ''); } } },
-            { key: "pourcentage", label: "Pourcentage", type: "number", required: true, step: "0.01" },
-            { key: "dateRetour", label: "Date de retour", type: "date" },
-            { key: "dateFin", label: "Date de fin", type: "date" },
-            { key: "disponibilite", label: "Disponible", type: "bool" },
-            { key: "idTypeChangement", label: "Type de changement", type: "select", required: true, select: { url: "/api/type-changement-remises", valueKey: "id", labelFormat: function(o) { return (o.nom || ''); } } },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>

@@ -8,41 +8,55 @@
 <nav th:replace="~{fragments/common :: navbar}"></nav>
 
 <div class="container-fluid">
+    <div class="app-card mb-4">
+        <h4 class="mb-3" th:text="${editTypeProduit != null ? 'Modifier le type' : 'Ajouter un type'}">Ajouter un type</h4>
+        <form th:action="@{/produits/types/save}" method="post">
+            <input type="hidden" name="id" th:value="${editTypeProduit?.id}"/>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nom *</label>
+                    <input type="text" name="nom" class="form-control" th:value="${editTypeProduit?.nom}" required/>
+                </div>
+            </div>
+            <div class="mt-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/produits/types}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+
     <div class="app-card">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Types de produit</h4>
-            <button id="crud-add-btn" class="btn btn-primary">+ Ajouter</button>
-        </div>
-        <div id="crud-alert" class="alert alert-danger d-none" role="alert"></div>
+        <h4 class="mb-3">Types de produit</h4>
         <div class="table-responsive">
             <table class="table table-striped align-middle">
                 <thead>
-                    <tr id="crud-thead-row"></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th style="width:200px">Actions</th>
+                    </tr>
                 </thead>
-                <tbody id="crud-table-body"></tbody>
+                <tbody>
+                    <tr th:each="t : ${typesProduit}">
+                        <td th:text="${t.id}">1</td>
+                        <td th:text="${t.nom}">Nom</td>
+                        <td>
+                            <a th:href="@{/produits/types(edit=${t.id})}" class="btn btn-sm btn-outline-primary me-1">Modifier</a>
+                            <form th:action="@{/produits/types/delete/{id}(id=${t.id})}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Supprimer ce type ?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(typesProduit)}">
+                        <td colspan="3" class="text-center text-muted py-4">Aucune donnee</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/modal :: modal}"></div>
-
 <th:block th:replace="~{fragments/common :: scripts}"></th:block>
-<script th:inline="javascript">
-    const crudConfig = {
-        apiUrl: "/api/type-produits",
-        idKey: "id",
-        columns: [
-            { key: "id", label: "ID", type: "text" },
-            { key: "nom", label: "Nom", type: "text" },
-        ],
-        fields: [
-            { key: "nom", label: "Nom", type: "text", required: true },
-        ]
-    };
-    document.addEventListener('DOMContentLoaded', function () {
-        CrudPage.init(crudConfig);
-    });
-</script>
 </body>
 </html>
